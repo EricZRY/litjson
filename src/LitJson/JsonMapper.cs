@@ -337,7 +337,7 @@ namespace LitJson
 
                 Type json_type = reader.Value.GetType ();
 
-                if (value_type.IsAssignableFrom (json_type))
+                if (value_type.IsAssignableFrom (json_type) || (value_type == typeof(Int64) && json_type == typeof(Int32)))
                     return reader.Value;
 
                 // If there's a custom importer that fits, use it
