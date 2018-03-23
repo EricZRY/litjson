@@ -368,7 +368,14 @@ namespace LitJson
                     return Enum.ToObject (value_type, reader.Value);
                 #else
                 if (value_type.IsEnum)
+                {
+                    if (Enum.IsDefined(value_type, reader.Value))
+                    {
+                        return Enum.Parse(value_type, (string)reader.Value);
+                    }
                     return Enum.ToObject (value_type, reader.Value);
+                }
+                    
                 #endif
                 // Try using an implicit conversion operator
                 MethodInfo conv_op = GetConvOp (value_type, json_type);
