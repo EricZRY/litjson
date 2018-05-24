@@ -421,7 +421,7 @@ namespace LitJson
         {
             if (data.type != JsonType.Boolean)
                 throw new InvalidCastException (
-                    "Instance of JsonData doesn't hold a double");
+                    "Instance of JsonData doesn't hold a boolean");
 
             return data.inst_boolean;
         }
@@ -440,9 +440,8 @@ namespace LitJson
             if (data.type != JsonType.Int && data.type != JsonType.Long)
             {
                 throw new InvalidCastException(
-                    "Instance of JsonData doesn't hold an int");
+                    "Instance of JsonData doesn't hold an Int32");
             }
-
             // cast may truncate data... but that's up to the user to consider
             return data.type == JsonType.Int ? data.inst_int : (int)data.inst_long;
         }
@@ -451,13 +450,12 @@ namespace LitJson
         {
             if (data.type != JsonType.Long && data.type != JsonType.Int)
             {
-                throw new InvalidCastException(
-                    "Instance of JsonData doesn't hold a long");
+                throw new InvalidCastException (
+                    "Instance of JsonData doesn't hold an Int64");
             }
-
             return data.type == JsonType.Long ? data.inst_long : data.inst_int;
         }
-
+        
         public static explicit operator String (JsonData data)
         {
             if (data.type != JsonType.String)

@@ -337,7 +337,7 @@ namespace LitJson
 
                 Type json_type = reader.Value.GetType ();
 
-                if (value_type.IsAssignableFrom (json_type))
+                if (value_type.IsAssignableFrom (json_type) || (value_type == typeof(Int64) && json_type == typeof(Int32)))
                     return reader.Value;
 
                 // If there's a custom importer that fits, use it
@@ -368,7 +368,14 @@ namespace LitJson
                     return Enum.ToObject (value_type, reader.Value);
                 #else
                 if (value_type.IsEnum)
+                {
+                    if (Enum.IsDefined(value_type, reader.Value))
+                    {
+                        return Enum.Parse(value_type, (string)reader.Value);
+                    }
                     return Enum.ToObject (value_type, reader.Value);
+                }
+                    
                 #endif
                 // Try using an implicit conversion operator
                 MethodInfo conv_op = GetConvOp (value_type, json_type);
